@@ -308,7 +308,7 @@ college_recent_grads %>%
 
 8.  Which STEM majors have median salaries equal to or less than the median for all majors' median earnings? Your output should only show the major name and median, 25th percentile, and 75th percentile earning for that major as and should be sorted such that the major with the highest median earning is on top.
 
-```{r echo=TRUE,eval=TRUE}
+```{r STEM_highest_earning,echo=TRUE,eval=TRUE}
 college_recent_grads %>%
   filter(
     major_type == "stem",
@@ -325,9 +325,43 @@ college_recent_grads %>%
 
 9.  Create a scatterplot of median income vs. proportion of women in that major, coloured by whether the major is in a STEM field or not. Describe the association between these three variables.
 
+```{r plot_median_vs_women_vs_inSTEM, echo=TRUE,eval=TRUE, error=TRUE, message=TRUE,figheight=2}
+college_recent_grads %>%
+  ggplot(aes(x= median, y= sharewomen, color= major_type))+
+  geom_point()+
+  theme_minimal()+
+  labs(
+    title = "Comparing Between Median Earning With The Proportion Of Women",
+    subtitle = "Catagorized by STEM major",
+    x = "Median",
+    y = "Proportion of Women",
+    color = "Major Type"
+  )
+```
+
+  ANSWER: From the plot, women in STEM got higher earnings compare with the other women who is not working in STEM job. Surprisingly, the highest earning made from about 12.5% are women in STEM, whereas there are more than 50% are women who  not working in STEM making lower than average earning after gradation.  
+
+
 ## Further exploration
 
 10. Ask a question of interest to you, and answer it using summary statistic(s) and/or visualization(s).
+
+```{r lowWage_CollegeJobs, echo=TRUE,eval=TRUE, error=TRUE, message=TRUE, figheight=2}
+college_recent_grads %>%
+  ggplot(aes(x = college_jobs, y = low_wage_jobs, color = major_category)) +
+  geom_point(alpha = 0.6) +
+  scale_x_log10() + scale_y_log10() +
+  labs(
+    title = "College vs Low-Wage Jobs by Major",
+    x = "Jobs Requiring College Degree",
+    y = "Low-Wage Jobs",
+    color = "Category"
+  ) +
+  theme_minimal()
+```
+
+  ANSWER: From the plot, we can see that there are alot of jobs require a degree with a high wage, which graduates major in Health, Physic&Science, Computer and Mathematics. 
+  
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
 
